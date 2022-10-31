@@ -1,5 +1,3 @@
-const API_URL = "https://api.themoviedb.org/3/search/movie?api_key=8d181bcb5e80a929053da01f6921e4a9&query"
-
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -15,73 +15,42 @@ const Home = () => {
     // const [addVisible, setAddVisible] = useState(false);
     // const [filteredInfo, setFilteredInfo] = useState({});
     // const [sortedInfo, setSortedInfo] = useState({});
-    const [title, setTitle] = useState({});
+    //const [title, setTitle] = useState({});
 
     const nav = useNavigate();
 
-    // useEffect(() => { fetchMovie() }, []);
-    const API_URL = "https://api.themoviedb.org/3/search/movie?api_key=8d181bcb5e80a929053da01f6921e4a9"
+    //const [movies, setMovies] = useState([]);
+    // useEffect(() => {
+    //     fetchTitle(API_URL)
+    //         .then((res) => res.json())
+    //         //setTitle(data.results);
+    //         .then(data => {
+    //             setMovies(data.results);
+    //         })
 
-    useEffect((res) => {
+    // }, []);
+
+    useEffect(() => {
         fetchTitle()
-            //.then((res) => res.json())
-            .then(console.log(res))
-        //setTitle(data.results);
+            .then((res) => console.log(res));
+        fetchGenres()
+            .then((res) => console.log(res));
+        fetchPopular()
+            .then((res) => console.log(res));
+        fetchUpComing()
+            .then((res) => console.log(res));
+        fetchNowPlaying()
+            .then((res) => console.log(res));
+        fetchTopRated()
+            .then((res) => console.log(res));
 
-    }, []);
+    })
 
-    // useEffect(() => {
-    //     fetchGenres(API_URL)
-    //     console.log(fetchGenres());
-    // }, []);
-
-    // useEffect(() => {
-    //     fetchPopular()
-    //     console.log(fetchPopular());
-    // }, []);
-
-    // useEffect(() => {
-    //     fetchUpComing()
-    //     console.log(fetchUpComing());
-    // }, []);
-
+    // useEffect(() => { fetchMovie() }, []);
     // useEffect(() => {
     //     fetchNowPlaying()
     //     console.log(fetchNowPlaying());
     // }, []);
-
-    // useEffect(() => {
-    //     fetchTopRated()
-    //     console.log(fetchTopRated());
-    // }, []);
-
-    // const handleChange = (pagination, filters, sorter) => {
-    //     setFilteredInfo(filters);
-    //     setSortedInfo(sorter);
-    // };
-
-    // const clearFilters = () => {
-    //     setFilteredInfo({});
-    // };
-    // const clearAll = () => {
-    //     setFilteredInfo({});
-    //     setSortedInfo({});
-    // };
-    // const setAgeSort = () => {
-    //     setSortedInfo({
-    //         order: 'descend',
-    //         columnKey: 'age',
-    //     });
-    // };
-
-
-    // const SearchBar = ({ onFormSubmit }) => {
-    //     const onSubmit = event => {
-    //         event.preventDefault();
-
-    //         onFormSubmit(term); //mevcut arama terimi component'e bildirildi
-    //     };
-    // }
 
     return (
         <div>
