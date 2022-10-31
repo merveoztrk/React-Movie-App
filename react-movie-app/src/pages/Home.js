@@ -3,19 +3,22 @@ import { Route, Routes } from "react-router-dom";
 import { Button, Space, Table, Input } from "antd";
 import { useState, useEffect } from "react";
 import 'antd/dist/antd.css';
+import { SearchOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import { fetchGenres, fetchTitle, fetchPopular, fetchUpComing, fetchNowPlaying, fetchTopRated } from '../apis/themoviedb';
+import { fetchGenres, fetchTitle, fetchPopular, fetchUpComing, fetchNowPlaying, fetchTopRated, fetchSearch } from '../apis/themoviedb';
 import Header from '../components/Header';
 import axios from 'axios';
 
 
 const Home = () => {
 
-    // const [term, setTerm] = useState('');
-    // const [addVisible, setAddVisible] = useState(false);
-    // const [filteredInfo, setFilteredInfo] = useState({});
-    // const [sortedInfo, setSortedInfo] = useState({});
-    //const [title, setTitle] = useState({});
+
+    const [addVisible, setAddVisible] = useState(false);
+    const [filteredInfo, setFilteredInfo] = useState({});
+    const [sortedInfo, setSortedInfo] = useState({});
+    const [movielist, setMovielist] = useState([]);
+    const [genrelist, setGenrelist] = useState([]);
+    const [term, setTerm] = useState('');
 
     const nav = useNavigate();
 
@@ -29,10 +32,42 @@ const Home = () => {
     //         })
 
     // }, []);
+    const handleChange = (pagination, filters, sorter) => {
+        //console.log('Various parameters', pagination, filters, sorter);
+        setFilteredInfo(filters);
+        setSortedInfo(sorter);
+    };
+
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+            sorter: (a, b) => a.title.length - b.title.length,
+            sortOrder: sortedInfo.columnKey === 'title' ? sortedInfo.order : null,
+            ellipsis: true,
+        },
+        {
+            title: 'Popularity',
+            dataIndex: 'popularity',
+            key: 'popularity',
+            sorter: (a, b) => a.popularity.length - b.popularity.length,
+            sortOrder: sortedInfo.columnKey === 'title' ? sortedInfo.order : null,
+            ellipsis: true,
+        },
+        {
+            title: 'Genres',
+            dataIndex: 'genres',
+            key: 'genres',
+            sorter: (a, b) => a.genres.length - b.genres.length,
+            sortOrder: sortedInfo.columnKey === 'title' ? sortedInfo.order : null,
+            ellipsis: true,
+        }
+    ]
 
     useEffect(() => {
         fetchTitle()
-            .then((res) => console.log(res));
+            .then((res) => setMovielist(res.data.results))
         fetchGenres()
             .then((res) => console.log(res));
         fetchPopular()
@@ -44,7 +79,7 @@ const Home = () => {
         fetchTopRated()
             .then((res) => console.log(res));
 
-    })
+    }, [])
 
     // useEffect(() => { fetchMovie() }, []);
     // useEffect(() => {
@@ -52,24 +87,32 @@ const Home = () => {
     //     console.log(fetchNowPlaying());
     // }, []);
 
+    const onsubmit = event => {
+        event.preventDefault();
+        //console.log(movielist);
+        nav(`/search/${term}`)
+        //component'e mevcut arama teriminin ne olduğu bildirme
+    };
+
+
+
+
     return (
         <div>
             <Header />
-            {/* <StreamForm onSubmit={onSubmit} /> */}
-            {/* <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} /> */}
+            <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} />
+            <Button type="primary" icon={<SearchOutlined />} onClick={onsubmit}>Search</Button>
 
-            {/* <Button type="primary" icon={<SearchOutlined />} onClick={() => setAddVisible(true)}></Button> */}
 
-            {/* <Space
+
+            <Space
                 style={{
                     marginBottom: 16,
                 }}
             >
-                <Button onClick={setAgeSort}>Sort age</Button>
-                <Button onClick={clearFilters}>Clear filters</Button>0
-                <Button onClick={clearAll}>Clear filters and sorters</Button>
-            </Space> */}
-            {/* <Table columns={columns} dataSource={results} onChange={handleChange} /> */}
+
+            </Space>
+            <Table columns={columns} dataSource={movielist} onChange={handleChange} />
 
         </div>
     )

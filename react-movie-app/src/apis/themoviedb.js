@@ -8,6 +8,11 @@ export const fetchTitle = async () => {
     const data = await axios.get('https://api.themoviedb.org/3/discover/movie?api_key=8d181bcb5e80a929053da01f6921e4a9')
     return data
 }
+export const fetchSearch = async (searchterm) => {
+    const data = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchterm}&api_key=8d181bcb5e80a929053da01f6921e4a9`)
+    return data
+}
+
 
 export const fetchGenres = async () => {
     const data = await axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=8d181bcb5e80a929053da01f6921e4a9')
