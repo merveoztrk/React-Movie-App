@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from "react-router-dom";
-import { Button, Space, Table, Input } from "antd";
+import { Button, Space, Table, Input, } from "antd";
 import { useState, useEffect } from "react";
 import 'antd/dist/antd.css';
 import { SearchOutlined } from '@ant-design/icons';
@@ -11,7 +11,6 @@ import axios from 'axios';
 
 
 const Home = () => {
-
 
     const [addVisible, setAddVisible] = useState(false);
     const [filteredInfo, setFilteredInfo] = useState({});
@@ -57,11 +56,25 @@ const Home = () => {
         },
         {
             title: 'Genres',
-            dataIndex: 'genres',
-            key: 'genres',
-            sorter: (a, b) => a.genres.length - b.genres.length,
-            sortOrder: sortedInfo.columnKey === 'title' ? sortedInfo.order : null,
+            dataIndex: 'genre_ids',
+            key: 'genre_ids',
+            sorter: (a, b) => a.genre_ids.length - b.genre_ids.length,
+            sortOrder: sortedInfo.columnKey === 'genre_ids' ? sortedInfo.order : null,
             ellipsis: true,
+            render: (_, record) => {
+                let str = ""
+                if (record.genre_ids.length > 0) {
+                    for (let i = 0; i < record.genre_ids.length; i++) {
+                        for (let y = 0; y < genrelist.length; y++) {
+                            if (genrelist[y].id === record.genre_ids[i]) {
+                                str += genrelist[y].name += " "
+                            }
+                        }
+                    }
+                    return str
+                }
+                else return str
+            }
         }
     ]
 
@@ -69,27 +82,14 @@ const Home = () => {
         fetchTitle()
             .then((res) => setMovielist(res.data.results))
         fetchGenres()
-            .then((res) => console.log(res));
-        fetchPopular()
-            .then((res) => console.log(res));
-        fetchUpComing()
-            .then((res) => console.log(res));
-        fetchNowPlaying()
-            .then((res) => console.log(res));
-        fetchTopRated()
-            .then((res) => console.log(res));
-
+            .then((res) => setGenrelist(res.data.genres));
     }, [])
 
-    // useEffect(() => { fetchMovie() }, []);
-    // useEffect(() => {
-    //     fetchNowPlaying()
-    //     console.log(fetchNowPlaying());
-    // }, []);
 
     const onsubmit = event => {
         event.preventDefault();
         //console.log(movielist);
+        //console.log(genrelist)
         nav(`/search/${term}`)
         //component'e mevcut arama teriminin ne olduğu bildirme
     };
@@ -102,21 +102,15 @@ const Home = () => {
             <Header />
             <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} />
             <Button type="primary" icon={<SearchOutlined />} onClick={onsubmit}>Search</Button>
-
-
-
             <Space
                 style={{
                     marginBottom: 16,
                 }}
             >
-
             </Space>
             <Table columns={columns} dataSource={movielist} onChange={handleChange} />
 
         </div>
     )
 }
-
-
 export default Home;

@@ -1,0 +1,9 @@
+@import'antd/dist/antd.css';
+
+.popular {
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
