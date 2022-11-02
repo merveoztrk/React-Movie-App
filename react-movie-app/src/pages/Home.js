@@ -7,7 +7,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { fetchGenres, fetchTitle, fetchPopular, fetchUpComing, fetchNowPlaying, fetchTopRated, fetchSearch } from '../apis/themoviedb';
 import Header from '../components/Header';
-import axios from 'axios';
+import './home.css';
 
 
 const Home = () => {
@@ -88,8 +88,8 @@ const Home = () => {
 
     const onsubmit = event => {
         event.preventDefault();
-        //console.log(movielist);
-        //console.log(genrelist)
+        // console.log(movielist);
+        // console.log(genrelist)
         nav(`/search/${term}`)
         //component'e mevcut arama teriminin ne olduğu bildirme
     };
@@ -100,15 +100,11 @@ const Home = () => {
     return (
         <div>
             <Header />
-            <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} />
-            <Button type="primary" icon={<SearchOutlined />} onClick={onsubmit}>Search</Button>
-            <Space
-                style={{
-                    marginBottom: 16,
-                }}
-            >
+            <Space className="searchBar">
+                <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} style={{ width: "780px" }} />
+                <Button type="primary" icon={<SearchOutlined />} onClick={onsubmit}>Search</Button>
             </Space>
-            <Table columns={columns} dataSource={movielist} onChange={handleChange} />
+            <Space className='table'><Table columns={columns} dataSource={movielist} onChange={handleChange} /></Space>
 
         </div>
     )

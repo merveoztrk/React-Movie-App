@@ -1,9 +1,14 @@
 @import'antd/dist/antd.css';
 
-.popular {
+.title {
     margin: 50px;
     display: flex;
     justify-content: center;
     text-align: center;
-    width: 100%;
+    width: 80%;
 }
+
+/* .card {
+    padding-right: 100;
+    width: 80%;
+} */

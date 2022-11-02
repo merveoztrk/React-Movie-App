@@ -3,11 +3,14 @@ import { useParams } from 'react-router-dom'
 import { fetchSearch } from '../apis/themoviedb';
 import { Card, Typography, Space, Col, Row } from 'antd';
 import Header from '../components/Header';
+import './page.css';
+
 const { Meta } = Card;
 
 const SearchResults = () => {
     const { term } = useParams();
     const [searchlist, setSearchlist] = useState([])
+
     useEffect(() => {
         fetchSearch(term).then(res => setSearchlist(res.data.results));
     }, [])
@@ -15,9 +18,10 @@ const SearchResults = () => {
     return (
         <div>
             <Header />
-            <Space className="popular">
-                <Typography.Text style={{ fontSize: 60 }} orientation="center">Popular</Typography.Text>
+            <Space className="title">
+                <Typography.Text style={{ fontSize: 60 }} orientation="center">Search Result</Typography.Text>
             </Space>
+
             <Row justify='space-around' align="middle" gutter={[48, 24]}>
                 {searchlist.map((item) => (
                     <Col span={6}>
@@ -27,11 +31,6 @@ const SearchResults = () => {
                     </Col >
                 ))}
             </Row>
-
-
-
-
-
         </div >
     )
 }
