@@ -7,7 +7,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { fetchGenres, fetchTitle, fetchPopular, fetchUpComing, fetchNowPlaying, fetchTopRated, fetchSearch } from '../apis/themoviedb';
 import Header from '../components/Header';
-import './home.css';
+import '../styles/home.css';
 
 
 const Home = () => {
@@ -101,7 +101,7 @@ const Home = () => {
         <div>
             <Header />
             <Space className="searchBar">
-                <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} style={{ width: "780px" }} />
+                <Input placeholder="Search a film..." onChange={(e) => setTerm(e.target.value)} style={{ width: "740px" }} />
                 <Button type="primary" icon={<SearchOutlined />} onClick={onsubmit}>Search</Button>
             </Space>
             <Space className='table'><Table columns={columns} dataSource={movielist} onChange={handleChange} /></Space>

@@ -7,6 +7,8 @@ import NowPlaying from "./pages/NowPlaying";
 import TopRated from "./pages/TopRated";
 import 'antd/dist/antd.css';
 import SearchResults from './pages/SearchResults';
+import Detail from './pages/Detail';
+import './App.css';
 
 
 const App = () => {
@@ -20,6 +22,7 @@ const App = () => {
           <Route path="/nowplaying" element={<NowPlaying />} />
           <Route path="/toprated" element={<TopRated />} />
           <Route path="/search/:term" element={<SearchResults />} />
+          <Route path="/movie/:id" element={<Detail />} />
         </Routes>
       </BrowserRouter>
     </>

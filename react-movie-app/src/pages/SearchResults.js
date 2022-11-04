@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { fetchSearch } from '../apis/themoviedb';
 import { Card, Typography, Space, Col, Row } from 'antd';
 import Header from '../components/Header';
-import './page.css';
+import '../styles/page.css';
 
 const { Meta } = Card;
 
@@ -19,10 +19,10 @@ const SearchResults = () => {
         <div>
             <Header />
             <Space className="title">
-                <Typography.Text style={{ fontSize: 60 }} orientation="center">Search Result</Typography.Text>
+                <Typography.Text style={{ fontSize: 60, paddingLeft: "80px" }} orientation="center">Search Result</Typography.Text>
             </Space>
 
-            <Row justify='space-around' align="middle" gutter={[48, 24]}>
+            <Row justify='space-around' align="middle" gutter={[48, 24]} style={{ paddingLeft: "80px" }}>
                 {searchlist.map((item) => (
                     <Col span={6}>
                         <Card style={{ width: 240 }} cover={<img alt="example" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />}>

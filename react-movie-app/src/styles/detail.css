@@ -1,0 +1,15 @@
+.detail_card {
+    display: flex;
+    width: 759px;
+    height: 632px;
+    margin-left: 63px;
+
+}
+
+.left_poster {
+    width: 506px;
+    height: 670px;
+    display: flex;
+    align-items: center;
+
+}

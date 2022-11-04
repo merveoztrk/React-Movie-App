@@ -1,9 +1,10 @@
 import { Card, Typography, Space, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { fetchUpComing } from '../apis/themoviedb';
 import Header from '../components/Header';
-import './page.css';
+import '../styles/page.css';
 
 const { Meta } = Card;
 
@@ -13,6 +14,7 @@ const UpComing = () => {
         textAlign: 'center',
     };
 
+    const nav = useNavigate();
     const [upcominglist, setUpcominglist] = useState([])
 
     useEffect(() => {
@@ -24,12 +26,12 @@ const UpComing = () => {
         <div>
             <Header />
             <Space className="title">
-                <Typography.Text style={{ fontSize: 60 }} orientation="center">Up Coming</Typography.Text>
+                <Typography.Text style={{ fontSize: 60, paddingLeft: "80px" }} orientation="center">Up Coming</Typography.Text>
             </Space>
-            <Row justify='space-around' align="middle" gutter={[48, 24]}>
+            <Row justify='space-around' align="middle" gutter={[48, 24]} style={{ paddingLeft: "80px" }}>
                 {upcominglist.map((item) => (
                     <Col className='card' span={6}>
-                        <Card style={{ width: 240 }} cover={<img alt="example" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />}>
+                        <Card onClick={() => nav(`/movie/${item.id}`)} style={{ width: 240 }} cover={<img alt="example" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} />}>
                             <Meta title={`${item.title}`} description={`Date: ${item.release_date} Vote: ${item.vote_count}`} />
                         </Card>
                     </Col >
